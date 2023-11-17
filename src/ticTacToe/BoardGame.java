@@ -1,5 +1,7 @@
 package ticTacToe;
 
+import java.util.List;
+
 public interface BoardGame {
 	
 	/**
@@ -15,7 +17,17 @@ public interface BoardGame {
 	
 	/**
 	 * 
-	 * @param winner typically holds the index of the winning player, -1 for a tie, or -2 for a game which ended early
+	 * @param winner typically holds the name of the winning player, "TIE" for a tie, or "NO_WINNER" for a game which ended early
+	 * @return a String stating the results of the game
 	 */
-	void endGame(int winner); 
+	String endGame(String winner); 
+	
+	/**
+	 * Returns a list of players
+	 * Note that in most games, the players will be internally stored as a queue or in some other data structure, not in a list
+	 * @return
+	 */
+	List<Player> getPlayers();
+
+	String seeBoard();
 }
