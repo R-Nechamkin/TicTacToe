@@ -2,7 +2,7 @@ package ticTacToe;
 
 public interface Strategy {
 	
-	public String[] choosePosition(TableGameBoard board);
+	public Position choosePosition(TableGameBoard board) throws IllegalArgumentException;
 
 
 }

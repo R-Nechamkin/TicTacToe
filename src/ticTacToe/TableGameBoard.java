@@ -1,7 +1,7 @@
 package ticTacToe;
 
 public class TableGameBoard implements GameBoard{
-	private String[][] board;
+	private Character[][] board;
 	private  int height;
 	private  int width;
 	private String gameName;
@@ -15,7 +15,7 @@ public class TableGameBoard implements GameBoard{
 	public TableGameBoard(int height, int width, String gameName) {
 		this.height = height;
 		this.width = width;
-		board = new String[height][width];
+		board = new Character[height][width];
 		this.gameName = gameName;
 	}
 	/**
@@ -25,7 +25,10 @@ public class TableGameBoard implements GameBoard{
 	 * @param col - An int holding the column the piece should be placed in
 	 * @throws IllegalMoveException if the piece was placed illegally
 	 */
-	public void placePiece(String piece, int row, int col) throws IllegalMoveException{
+	public void placePiece(Character piece, int row, int col) throws IllegalMoveException{
+		if (piece == null) {
+			throw new IllegalArgumentException("You just tried to place a piece of value null.");
+		}
 		if (row >= height || col >= width) {
 			throw new IllegalMoveException(gameName + " uses a " + height + "*" + width + " board.");
 		}
@@ -41,7 +44,7 @@ public class TableGameBoard implements GameBoard{
 	 * @param col
 	 * @return
 	 */
-	public String getPiece(int row, int col) {
+	public Character getPiece(int row, int col) {
 		return board[row][col];
 	}
 	
@@ -50,8 +53,8 @@ public class TableGameBoard implements GameBoard{
 	 * @return
 	 */
 	public boolean isFull() {
-		for(String[] row: board) {
-			for (String box: row) {
+		for(Character[] row: board) {
+			for (Character box: row) {
 				if (box == null)
 					return false;
 			}
@@ -60,7 +63,7 @@ public class TableGameBoard implements GameBoard{
 	}
 
 	public void placePiece(String[] info) throws IllegalMoveException {
-		placePiece(info[0], Integer.parseInt(info[1]), Integer.parseInt(info[2]));
+		placePiece(info[0].charAt(0), Integer.parseInt(info[1]), Integer.parseInt(info[2]));
 		
 	}
 }

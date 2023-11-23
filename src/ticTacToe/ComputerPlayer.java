@@ -3,26 +3,18 @@ package ticTacToe;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ComputerPlayer implements Player{
+public class ComputerPlayer extends Player{
 	
-	private List<String> pieces = new ArrayList<>();
+	private char pieceType = 'O';
+	private int numPieces = 4;
 	private String name;
 	
 	public ComputerPlayer() {
 		this("The computer");
 	}
-	
+
 	public ComputerPlayer(String name) {
-		this.name = name;
-	}
-	
-	public List<String> seePieces(){
-		return new ArrayList<>(pieces);
+		super('O', 4, name, new ComputerTicTacToeStrategy());
 	}
 
-	@Override
-	public char[] play() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

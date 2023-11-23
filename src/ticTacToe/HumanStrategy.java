@@ -9,8 +9,7 @@ public abstract class HumanStrategy implements Strategy{
 		this.input = in;
 	}
 	
-	public abstract String[] choosePosition(TableGameBoard board);
+	public abstract Position choosePosition(TableGameBoard board) throws IllegalArgumentException;
 	
-	public abstract String validateInput(String s, String[] options);
 
 }

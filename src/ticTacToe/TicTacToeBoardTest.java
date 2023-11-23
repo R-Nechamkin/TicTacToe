@@ -8,27 +8,28 @@ class TicTacToeBoardTest {
 
 	@Test
 	void PlacingPieceWhereThereAlreadyIsOneThrowsException() {
-		GameBoard board = new TicTacToeBoard();
+		TicTacToeBoard board = new TicTacToeBoard();
 		
+		Position a1 = new Position('A', '1');
 		// setup
 		try {
-			board.placePiece("X", 1, 1);
-		} catch (IllegalMoveException e) {
+			board.placePiece('X', a1);
+		} catch (IllegalMoveException | IllegalArgumentException e) {
 			e.printStackTrace();
 		}
 		
-		assertThrows(IllegalMoveException.class, () -> {board.placePiece("X", 1, 1);});
+		assertThrows(IllegalMoveException.class, () -> {board.placePiece('X', a1);});
 	}
 	
 	@Test
 	void PlacingPieceOutOfBoundsThrowsIllegalMoveException() {
-		GameBoard board = new TicTacToeBoard();
-		assertThrows(IllegalMoveException.class, () -> {
-			board.placePiece("X", 3, 2);
+		TicTacToeBoard board = new TicTacToeBoard();
+		assertThrows(Throwable.class, () -> {
+			board.placePiece('X', 'D', '2');
 		}, "Was able to place a piece in a nonexistent row");
 		
-		assertThrows(IllegalMoveException.class, () -> {
-			board.placePiece("X", 2, 3);
+		assertThrows(Throwable.class, () -> {
+			board.placePiece('X', 'B', '4');
 		}, "Was able to place a piece in a nonexistent column");
 		
 	}
