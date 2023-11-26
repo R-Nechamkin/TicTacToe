@@ -1,6 +1,11 @@
 package ticTacToe;
 
-import java.util.List;
+
+import exceptions.IllegalMoveException;
+import general.Strategy;
+import gridGames.Position;
+import gridGames.GameInfo;
+import gridGames.GridGameBoard;
 
 /**
  * This class is the abstract Player class, parent of the HumanPlayer and ComputerPlayer classes.
@@ -16,14 +21,16 @@ public abstract class Player {
 	private char pieceType;
 	private int numPieces;
 	private String name;
-	private TableGameBoard board;
+	private GameInfo gameDetails;
 	private Strategy strat;
+
 	
-	public Player(char pieceType, int numPieces, String name, Strategy s) {
+	public Player(char pieceType, int numPieces, String name, Strategy s, GameInfo info) {
 		this.pieceType = pieceType;
 		this.numPieces = numPieces;
 		this.name = name;
 		this.strat = s;
+		this.gameDetails = info;
 	}
 	
 	/**
@@ -61,11 +68,18 @@ public abstract class Player {
 			throw new IllegalMoveException(name + " has no more pieces left to play.");
 		}
 		numPieces --;
-		board.placePiece(pieceType, pos.getRowIndex(), pos.getColIndex());
+		gameDetails.getBoard().placePiece(pieceType, pos.getRowIndex(), pos.getColIndex());
 		char[] move = {pieceType, pos.getRow(), pos.getCol()};
 		return move;
 	}
 	
+	/**
+	 * @return the gameDetails
+	 */
+	public GameInfo getGameDetails() {
+		return gameDetails;
+	}
+
 	/**
 	 * Has the player play its turn, placing a piece according to the position which is passed in
 	 * The two parameters give the position on the board where the player should place their piece
@@ -78,7 +92,7 @@ public abstract class Player {
 	public char[] play(char row, char col) throws IllegalMoveException {
 		Position p;
 		try {
-			p = new Position(row, col);
+			p = new TTTPosition(row, col);
 		} catch (IllegalArgumentException e) {
 			throw new IllegalMoveException(e.getMessage());
 		}
@@ -90,16 +104,21 @@ public abstract class Player {
 	 * This method calls {@code choosePosition()} to decide what position to use and then plays the turn with that position
 	 * @return A char array with 3 elements in this order: the piece played, the row it was played in, and the column it was played in. <br>
 	 * 	As an example, a return value of ['X', 'A', '1'] means that a player has placed an X piece in the top left corner of the board
+	 * @throws IllegalMoveException 
+	 * @throws IllegalArgumentException 
 	 */
-	public char[] play() {
+	public char[] play() throws IllegalArgumentException, IllegalMoveException {
 		Position p = choosePosition();
 		char[] move = null;
+		/*
 		try {
 			move = play(p);
 		} catch (IllegalMoveException e) {
 			// Since choosePosition() has input validation to only allow picking valid moves, we want to hide the
 			//  possibility of the IllegalMoveException being thrown by play(Position pos) 
 		}
+		*/
+		move = play(p);
 		return move;
 	}
 	
@@ -108,9 +127,11 @@ public abstract class Player {
 	 * Note that all this method actually does is call the {@code choosePosition()} method of the player's {@code Strategy} object
 	 * Note that the strategy object is what differentiates HumanPlayer from ComputerPlayer
 	 * @return a {@code Position} object holding the position for the player to place their next piece in
+	 * @throws IllegalMoveException 
+	 * @throws IllegalArgumentException 
 	 */
-	public Position choosePosition() {
-		return strat.choosePosition(board);
+	public Position choosePosition() throws IllegalArgumentException, IllegalMoveException {
+		return strat.choosePosition();
 	}
 
 }

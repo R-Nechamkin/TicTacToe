@@ -1,10 +1,17 @@
-package ticTacToe;
+package gridGames;
 
-public class TableGameBoard implements GameBoard{
+import java.util.List;
+import java.util.ArrayList;
+
+import exceptions.IllegalMoveException;
+import general.GameBoard;
+
+public abstract class GridGameBoard implements GameBoard{
 	private Character[][] board;
 	private  int height;
 	private  int width;
 	private String gameName;
+
 	
 	/**
 	 * 
@@ -12,11 +19,12 @@ public class TableGameBoard implements GameBoard{
 	 * @param width The number of columns on the board
 	 * @param gameName The name of the game
 	 */
-	public TableGameBoard(int height, int width, String gameName) {
+	public GridGameBoard(int height, int width, String gameName) {
 		this.height = height;
 		this.width = width;
 		board = new Character[height][width];
 		this.gameName = gameName;
+
 	}
 	/**
 	 * This method is used to place pieces on the board
@@ -38,8 +46,11 @@ public class TableGameBoard implements GameBoard{
 		board[row][col] = piece;
 	}
 	
+
 	/**
-	 * Returns the pieces at the given spot on the board
+	 * Returns the piece at the given spot on the board.
+	 * 	Note that the parameters represent the array indices of the cell on the board.
+	 *  For a more user-friendly method, use the getPiece method which takes a {@code Position} parameter
 	 * @param row
 	 * @param col
 	 * @return
@@ -48,6 +59,28 @@ public class TableGameBoard implements GameBoard{
 		return board[row][col];
 	}
 	
+	/**
+	 * Returns the piece at the given position on the board
+	 * @param p a {@code Position} object
+	 * @return A char representing the piece at that position
+	 */
+	public Character getPiece(Position p) {
+		return getPiece(p.getRowIndex(), p.getColIndex());
+	}
+	
+	
+	/**
+	 * @return the number of rows which the board has
+	 */
+	public int getHeight() {
+		return height;
+	}
+	/**
+	 * @return the number of columns which the board has
+	 */
+	public int getWidth() {
+		return width;
+	}
 	/**
 	 * Returns true if the board is full (i.e.: every spot on the board has a piece in it)
 	 * @return
@@ -66,4 +99,7 @@ public class TableGameBoard implements GameBoard{
 		placePiece(info[0].charAt(0), Integer.parseInt(info[1]), Integer.parseInt(info[2]));
 		
 	}
+	
+	public abstract Character getWinner();
+
 }

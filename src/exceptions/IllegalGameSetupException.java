@@ -1,4 +1,4 @@
-package ticTacToe;
+package exceptions;
 
 public class IllegalGameSetupException extends Exception {
 

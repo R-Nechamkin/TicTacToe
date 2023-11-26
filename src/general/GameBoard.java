@@ -1,4 +1,6 @@
-package ticTacToe;
+package general;
+
+import exceptions.IllegalMoveException;
 
 public interface GameBoard {
 	

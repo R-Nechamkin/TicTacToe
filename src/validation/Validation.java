@@ -69,6 +69,7 @@ public interface Validation {
 
 	/**
 	 * This message asks the user if they would like to do something
+	 * yMessage and nMessage will be printed in the following format: Please type Y to " + yMessage + " or N to " + nMessage + ". "
 	 * @param message   A String describing what the user is being asked to do
 	 * @param yMessage  A String describing what will happen if thet user indicates they wish to do the action
 	 * @param nMessage  A String describing what will happen if the user indicates they do not wish to do the action
