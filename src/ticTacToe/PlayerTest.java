@@ -24,7 +24,7 @@ class PlayerTest {
 	 */
 	@BeforeEach
 	void setUp(){
-		human = new HumanPlayer();
+		human = new HumanPlayer(true);
 		board = new TicTacToeBoard();
 	}
 	

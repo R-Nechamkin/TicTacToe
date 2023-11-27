@@ -11,8 +11,8 @@ import gridGames.GridGameBoard;
  */
 public class TTTGameInfo implements GameInfo{
 	
-	private Player human;
-	private Player computer;
+	private Player p1;
+	private Player p2;
 	private TicTacToeBoard board;
 	
 	/**
@@ -26,8 +26,8 @@ public class TTTGameInfo implements GameInfo{
 			throw new IllegalGameSetupException
 			("This version of Tic-Tac-Toe requires the first player to be human and the second player to be a computer");
 		}
-		this.human = p1;
-		this.computer = p2;
+		this.p1 = p1;
+		this.p2 = p2;
 		this.board = (TicTacToeBoard) board;
 	}
 	
@@ -42,16 +42,16 @@ public class TTTGameInfo implements GameInfo{
 	 * @return the p1
 	 */
 	@Override
-	public Player getHuman() {
-		return human;
+	public Player getPlayer1() {
+		return p1;
 	}
 
 	/**
 	 * @return the p2
 	 */
 	@Override
-	public Player getComputer() {
-		return computer;
+	public Player getPlayer2() {
+		return p2;
 	}
 
 	/**

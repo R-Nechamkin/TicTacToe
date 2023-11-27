@@ -7,12 +7,12 @@ import gridGames.GameInfo;
 
 public class HumanPlayer extends Player{
 	
-	public HumanPlayer() {
-		this("The human");
+	public HumanPlayer(boolean first) {
+		this("Human", first);
 	}
 	
-	public HumanPlayer(String name){
-		super('X', 5, name,  new HumanTicTacToeStrategy(new Scanner(System.in)));
+	public HumanPlayer(String name, boolean first){
+		super(name, new HumanTicTacToeStrategy(new Scanner(System.in)), first);
 	}
 
 

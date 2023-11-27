@@ -78,7 +78,7 @@ class TicTacToeBoardTest {
 	void FilledListWorks() throws IllegalGameSetupException {
 		Position h1 = new TTTPosition('A', '1');
 		Position h2 = new TTTPosition('B', '2');
-		Player computer = new ComputerPlayer();
+		Player computer = new ComputerPlayer(false);
 		Position c1 = null;
 		Position c2 = null;
 		try {

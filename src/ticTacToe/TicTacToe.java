@@ -1,5 +1,6 @@
 package ticTacToe;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
@@ -7,22 +8,16 @@ import java.util.Scanner;
 
 import exceptions.IllegalMoveException;
 import general.BoardGame;
-import gridGames.GameInfo;
-import gridGames.GridGameBoard;
-import playerQueue.PlayerQueue;
 import validation.ConsoleValidation;
 import validation.Validation;
 
 public class TicTacToe implements BoardGame{
 	private Queue<Player> players;
-	private GridGameBoard board;
+	private TicTacToeBoard board;
 	private Validation val;
-	private GameInfo info;
 	
-	public TicTacToe(GameInfo info) {
-		players = new PlayerQueue<>(2);
-		this.info = info;
-		setUpGame();
+	public TicTacToe(Queue<Player> players) {
+		setUpGame(players);
 		val = new ConsoleValidation(new Scanner(System.in));
 	}
 	
@@ -30,12 +25,26 @@ public class TicTacToe implements BoardGame{
 	 * See the interface for a description of the method
 	 */
 	@Override
-	public void setUpGame() {
-		this.board = info.getBoard();
-		players.clear();
-		players.add(info.getHuman());
-		players.add(info.getComputer());
-				
+	public void setUpGame(Queue<Player> oldQueue) {
+		this.board = new TicTacToeBoard();
+
+		this.players = new ArrayDeque<>(2);
+
+		if (oldQueue.peek() instanceof HumanPlayer) {
+			// if the old queue's first player is  human, we will make our first player be human
+			// since we've previously determined that the first item in the queue is the human player, let's get
+				// the human's name by doing oldQueue.remove()
+			players.add(new HumanPlayer(oldQueue.remove().getName(), true));
+			players.add(new ComputerPlayer(oldQueue.remove().getName(), false));
+		}
+		else {
+			//otherwise, we will make our first player be the computer
+			// since we've previously determined that the first item in the queue is the computer player, let's get
+			// the computer's name by doing oldQueue.remove()
+			players.add(new ComputerPlayer(oldQueue.remove().getName(), true));
+			players.add(new HumanPlayer(oldQueue.remove().getName(), false));
+		}
+		
 	}
 
 	
@@ -62,20 +71,21 @@ public class TicTacToe implements BoardGame{
 	 */
 	@Override
 	public String isGameOver() throws IllegalMoveException {
-		if (board.isFull())
-			return "NO_WINNER";
 		Character winner = board.getWinner();
-		if (winner == null)
-			return null;
-		else {
-			Player p = players.remove();
-			if (p.getPieceType() == winner)
-					return p.getName();
-			players.add(p);
-			p = players.remove();
-			if (p.getPieceType() == winner)
-				return p.getName();
+		if (winner == null) {
+			if (board.isFull()) {
+				return "NO_WINNER";
+			}	
+			else {
+				return null;
 			}
+		}
+		else {
+			for (Player p: players) {
+				if (p.getPieceType() == winner)
+					return p.getName();
+			}
+		}
 		
 		throw new IllegalMoveException("Something is very wrong");
 	}
@@ -109,7 +119,7 @@ public class TicTacToe implements BoardGame{
 	 * See the interface for a description of the method
 	 */
 	@Override
-	public String startGame() {
+	public String playGame() {
 		String winner = null;
 		while (winner == null) {
 			try {
@@ -122,7 +132,7 @@ public class TicTacToe implements BoardGame{
 					e.printStackTrace();
 				}
 				if (val.askAgain("Would you like to try playing again", "play again" , "quit")){
-					setUpGame();
+					setUpGame(players);
 					return "NO_WINNER";
 				}
 			}
@@ -136,7 +146,7 @@ public class TicTacToe implements BoardGame{
 	public void nextPlayerGo() throws IllegalMoveException {
 		Player currPlayer = players.remove();
 		char[] move = currPlayer.play(board);
-		players.remove(currPlayer);
+		players.add(currPlayer);
 		System.out.println(currPlayer.getName() + " has gone in the position of " + move[1] + move[2] + ".");
 		System.out.println("This is the current state of the board:\n" + board);
 	}
@@ -146,7 +156,7 @@ public class TicTacToe implements BoardGame{
 	 */
 	@Override
 	public void playAgain() {
-		setUpGame();
+		setUpGame(players);
 	}
 	
 

@@ -1,6 +1,7 @@
 package general;
 
 import java.util.List;
+import java.util.Queue;
 
 import exceptions.IllegalMoveException;
 import gridGames.GridGameBoard;
@@ -10,8 +11,10 @@ public interface BoardGame {
 	
 	/**
 	 * This method prepares the game to be played
+	 * @param oldQueue a queue of players whose contents will determine what the BoardGame's internal 
+	 *  list of players will be
 	 */
-	void setUpGame();
+	void setUpGame(Queue<Player> oldQueue);
 	
 	
 	/**
@@ -50,7 +53,7 @@ public interface BoardGame {
 	 * @return a String representing the winner of the game.
 	 * 	This is typically the name of the winning player, "TIE" for a tie, or "NO_WINNER" for a game which ended early.
 	 */
-	String startGame();
+	String playGame();
 	
 	/**
 	 * Clears everything and starts the game again

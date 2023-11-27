@@ -2,22 +2,25 @@ package ticTacToe;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayDeque;
 import java.util.List;
+import java.util.Queue;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import exceptions.IllegalGameSetupException;
 import general.BoardGame;
-import gridGames.GameInfo;
 
 class TicTacToeTest {
 	static BoardGame game;
 	
 	@BeforeEach
 	void setUp() throws IllegalGameSetupException {
-		GameInfo info = new TTTGameInfo(new HumanPlayer(), new ComputerPlayer(), new TicTacToeBoard());
-		game = new TicTacToe(info);
+		Queue<Player> p = new ArrayDeque<>(2);
+		p.add(new HumanPlayer(true));
+		p.add(new ComputerPlayer(false));
+		game = new TicTacToe(p);
 	}
 	@Test
 	void ConstructorSetsUpBoardAndPlayers() {

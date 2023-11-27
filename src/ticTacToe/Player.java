@@ -24,9 +24,15 @@ public abstract class Player {
 	private Strategy strat;
 
 	
-	public Player(char pieceType, int numPieces, String name, Strategy s) {
-		this.pieceType = pieceType;
-		this.numPieces = numPieces;
+	public Player(String name, Strategy s, boolean first) {
+		if (first) {
+			pieceType = 'X';
+			numPieces = 5;
+		}
+		else {
+			pieceType = 'O';
+			numPieces = 4;
+		}
 		this.name = name;
 		this.strat = s;
 	}

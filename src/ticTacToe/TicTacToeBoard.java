@@ -116,8 +116,8 @@ public class TicTacToeBoard extends GridGameBoard {
 		else {
 			player = getPiece(row[0]);
 		}
-		for (Position p: row) {
-			if (getPiece(p) != player)
+		for (int i = 1; i <3; i++) {
+			if (getPiece(row[i]) != player)
 				return null;
 		}
 		return player;

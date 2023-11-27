@@ -5,14 +5,14 @@ import ticTacToe.Player;
 public interface GameInfo {
 
 	/**
-	 * @return a Player representing the human player
+	 * @return the first player
 	 */
-	Player getHuman();
+	Player getPlayer1();
 
 	/**
-	 * @return a Player representing the computer player
+	 * @return a Player representing the second player
 	 */
-	Player getComputer();
+	Player getPlayer2();
 
 	/**
 	 * @return the board

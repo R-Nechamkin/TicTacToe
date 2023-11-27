@@ -2,7 +2,6 @@ package ticTacToe;
 
 import java.util.Scanner;
 
-import gridGames.GameInfo;
 import gridGames.GridGameBoard;
 import gridGames.HumanStrategy;
 import gridGames.Position;
@@ -43,14 +42,15 @@ public class HumanTicTacToeStrategy extends HumanStrategy {
 	private Position getInputtedPosition() {
 		Scanner keyboard = getInput();
 
-		System.out.println("Type the position you would like to place your piece in (row, space, then column): ");
-		char row = keyboard.next().charAt(0);
-		keyboard.nextLine(); // Clear buffer
-		row = val.validateChar(row, rowOptions, "Please type the letter of the row you would like to place your piece in: ");
+		System.out.println("Type the row that you would like to place your piece in and then press enter.");
+		char row = keyboard.nextLine().toUpperCase().charAt(0);
+		row = val.validateChar(row, rowOptions, "Please type the letter of the row you would like to place your piece in"
+				+ "\n The rows are A, B, and C: " );
 		
-		char col = keyboard.next().charAt(0);
-		keyboard.nextLine(); // Clear buffer
-		col = val.validateChar(col, colOptions, "Please type the number of the column you would like to place your piece in: ");
+		System.out.println("Type the column that you would like to place your piece in.");
+		char col = keyboard.nextLine().toUpperCase().charAt(0);
+		col = val.validateChar(col, colOptions, "Please type the number of the column you would like to place your piece in and then press enter"
+				+ "\n The columns are 1, 2, and 3: ");
 		
 		return new TTTPosition(row, col);
 	}
