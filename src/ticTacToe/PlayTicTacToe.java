@@ -13,8 +13,7 @@ public class PlayTicTacToe {
 		Validation val = new ConsoleValidation(new Scanner(System.in));
 		
 		try {
-			GameInfo gInfo;
-			gInfo = new TTTGameInfo(new HumanPlayer(gInfo), new ComputerPlayer(gInfo), new TicTacToeBoard());
+			GameInfo gInfo = new TTTGameInfo(new HumanPlayer(), new ComputerPlayer(), new TicTacToeBoard());
 			
 			BoardGame game = new TicTacToe(gInfo);
 			do {

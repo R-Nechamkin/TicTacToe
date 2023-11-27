@@ -76,25 +76,21 @@ class TicTacToeBoardTest {
 	
 	@Test
 	void FilledListWorks() throws IllegalGameSetupException {
-		GameInfo info = null;
-		info = new TTTGameInfo(new HumanPlayer(info), new ComputerPlayer(info), new TicTacToeBoard());
-		
 		Position h1 = new TTTPosition('A', '1');
 		Position h2 = new TTTPosition('B', '2');
-		Player computer = info.getComputer();
+		Player computer = new ComputerPlayer();
 		Position c1 = null;
 		Position c2 = null;
-		TicTacToeBoard board = (TicTacToeBoard) info.getBoard();
 		try {
 			board.placePiece('X', h1);
 			assertTrue(board.getAllFilledSets().contains(h1));
-			c1 = computer.choosePosition();
+			c1 = computer.choosePosition(board);
 			assertFalse(board.getAllFilledSets().contains(c1), "The computer chose a position already taken, c1.");
 			board.placePiece('O', c1);
 			assertTrue(board.getAllFilledSets().contains(c1));
 			board.placePiece('X', h2);
 			assertTrue(board.getAllFilledSets().contains(h2));
-			c2 = computer.choosePosition();
+			c2 = computer.choosePosition(board);
 			assertFalse(board.getAllFilledSets().contains(c2), "The computer chose a position already taken, c2.");
 			board.placePiece('O', c2);
 			assertTrue(board.getAllFilledSets().contains(c2));

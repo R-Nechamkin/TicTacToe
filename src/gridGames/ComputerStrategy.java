@@ -1,13 +1,12 @@
-package general;
+package gridGames;
 
 import exceptions.IllegalMoveException;
-import gridGames.Position;
 
 public abstract class ComputerStrategy implements Strategy {
 
 
 	@Override
-	public abstract Position choosePosition() throws IllegalMoveException;
+	public abstract Position choosePosition(GridGameBoard board) throws IllegalMoveException;
 	
 
 }

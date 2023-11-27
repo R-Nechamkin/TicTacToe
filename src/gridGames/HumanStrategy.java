@@ -1,8 +1,6 @@
-package general;
+package gridGames;
 
 import java.util.Scanner;
-
-import gridGames.Position;
 
 public abstract class HumanStrategy implements Strategy{
 	private Scanner input;
@@ -11,7 +9,7 @@ public abstract class HumanStrategy implements Strategy{
 		this.setInput(in);
 	}
 	
-	public abstract Position choosePosition() throws IllegalArgumentException;
+	public abstract Position choosePosition(GridGameBoard board) throws IllegalArgumentException;
 
 	public Scanner getInput() {
 		return input;

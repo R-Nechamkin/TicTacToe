@@ -2,33 +2,33 @@ package ticTacToe;
 
 import java.util.Scanner;
 
-import general.HumanStrategy;
 import gridGames.GameInfo;
 import gridGames.GridGameBoard;
+import gridGames.HumanStrategy;
 import gridGames.Position;
 import validation.*;
 
 public class HumanTicTacToeStrategy extends HumanStrategy {
 	private Validation val;
-	private GameInfo gameDetails;
 
 	private final static char[] rowOptions = {'A', 'B', 'C'};
 	private final static char[] colOptions = {'1', '2', '3'};
 	
-	public HumanTicTacToeStrategy(Scanner keyboard, GameInfo gInfo) {
+	public HumanTicTacToeStrategy(Scanner keyboard) {
 		super(keyboard);
-		this.gameDetails = gInfo;
 		val = new ConsoleValidation(keyboard);
 	}
 	
 	/**
 	 * This method lets the human user choose what position they want to place their piece in for the turn
 	 * To do this, it prints things out to the console and reads from a scanner which is assumed to be connected to Standard In
+	 * @param board the board that this player is playing with
+	 * @return the Position the user desires to play their next piece in
 	 */
-	public Position choosePosition() throws IllegalArgumentException{
+	public Position choosePosition(GridGameBoard board) throws IllegalArgumentException{
 
 		Position pos = getInputtedPosition();
-		while(!positionEmpty(pos)) {
+		while(!positionEmpty(pos, board)) {
 			System.out.println("Sorry, there is already a piece in this position");
 			pos = getInputtedPosition();
 		}
@@ -57,11 +57,12 @@ public class HumanTicTacToeStrategy extends HumanStrategy {
 	
 	/**
 	 * This method checks whether there is already a piece in a position.
+	 * @param board the board that this player is playing with
 	 * @param p the Position to be checked
 	 * @return
 	 */
-	private boolean positionEmpty(Position p) {
-		if(gameDetails.getBoard().getPiece(p.getRowIndex(), p.getColIndex()) != null) {
+	private boolean positionEmpty(Position p, GridGameBoard board) {
+		if(board.getPiece(p.getRowIndex(), p.getColIndex()) != null) {
 			return false;
 		}
 		return true;

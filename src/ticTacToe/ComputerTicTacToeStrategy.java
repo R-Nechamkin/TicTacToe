@@ -16,7 +16,6 @@ import general.*;
 import gridGames.*;
 
 public class ComputerTicTacToeStrategy extends ComputerStrategy {
-	private GameInfo gameDetails;
 	private char myPiece = 'O'; 
 	private char humanPiece = 'X';
 	
@@ -29,21 +28,20 @@ public class ComputerTicTacToeStrategy extends ComputerStrategy {
 	private static final Position[][] WINS = TicTacToeBoard.getWinningRows();
 
 		
-	public ComputerTicTacToeStrategy(GameInfo gInfo) {
+	public ComputerTicTacToeStrategy() {
 		priorities = new HashMap<>();
 		setUp();
-		this.gameDetails = gInfo;
 	}
 
 	@Override
-	public Position choosePosition() throws IllegalMoveException {
-		updatePriorities();
+	public Position choosePosition(GridGameBoard board) throws IllegalMoveException {
+		updatePriorities(board);
 		// If have two in row, put down third
-		Position p = placeThirdInRow();
+		Position p = placeThirdInRow(board);
 		if (p != null)
 			return p;
 		// Prevent other player from putting down third
-		p = stopHumanThreeInRow();
+		p = stopHumanThreeInRow(board);
 		if (p != null)
 			return p;
 		// Place the most strategic piece	
@@ -65,9 +63,9 @@ public class ComputerTicTacToeStrategy extends ComputerStrategy {
 	 * @return the position of that third 
 	 * @throws IllegalMoveException
 	 */
-	private Position placeThirdInRow() throws IllegalMoveException {
+	private Position placeThirdInRow(GridGameBoard board) throws IllegalMoveException {
 		for (Position[] row: WINS) {
-			Position p = twoInRow(row, myPiece); 
+			Position p = twoInRow(row, myPiece, board); 
 			if (p != null) {
 				return p;
 			}
@@ -80,9 +78,9 @@ public class ComputerTicTacToeStrategy extends ComputerStrategy {
 	 * @return the Position in which the computer should place a piece to block the human from winning
 	 * @throws IllegalMoveException
 	 */
-	private Position stopHumanThreeInRow() throws IllegalMoveException{
+	private Position stopHumanThreeInRow(GridGameBoard board) throws IllegalMoveException{
 		for (Position[] row: WINS) {
-			Position p = twoInRow(row, humanPiece); 
+			Position p = twoInRow(row, humanPiece, board); 
 			if (p != null) {
 				return p;
 			}
@@ -99,14 +97,14 @@ public class ComputerTicTacToeStrategy extends ComputerStrategy {
 	 * @return the position of the 
 	 * @throws IllegalMoveException
 	 */
-	private Position twoInRow(Position[] row, char piece) throws IllegalMoveException  {
+	private Position twoInRow(Position[] row, char piece, GridGameBoard board) throws IllegalMoveException  {
 		int count = 0;
 		Position third = null;
 		for (Position p: row) {
-			if (gameDetails.getBoard().getPiece(p) == null) {
+			if (board.getPiece(p) == null) {
 				third = p;
 			}
-			else if (gameDetails.getBoard().getPiece(p) == piece) {
+			else if (board.getPiece(p) == piece) {
 				count++;
 			}
 			else{
@@ -135,9 +133,9 @@ public class ComputerTicTacToeStrategy extends ComputerStrategy {
 	/**
 	 * This method removes from the map of priorities any position which has already been filled
 	 */
-	public void updatePriorities() {
-		TTTGameInfo gInfo = (TTTGameInfo) gameDetails;
-		for (Position p: gInfo.getBoard().getAllFilledSets()) {
+	public void updatePriorities(GridGameBoard board) {
+		TicTacToeBoard b = (TicTacToeBoard) board;
+		for (Position p: b.getAllFilledSets()) {
 			priorities.remove(p);
 		}
 	}
@@ -162,13 +160,6 @@ public class ComputerTicTacToeStrategy extends ComputerStrategy {
     	}
     	return maxKey;
     }
-
-	/**
-	 * @return the gameDetails
-	 */
-	public GameInfo getGameDetails() {
-		return gameDetails;
-	}
 
 
 }

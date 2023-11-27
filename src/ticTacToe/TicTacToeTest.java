@@ -17,7 +17,6 @@ class TicTacToeTest {
 	@BeforeEach
 	void setUp() throws IllegalGameSetupException {
 		GameInfo info = null;
-		info = new TTTGameInfo(new HumanPlayer(info), new ComputerPlayer(info), new TicTacToeBoard());
 		game = new TicTacToe(info);
 	}
 	@Test

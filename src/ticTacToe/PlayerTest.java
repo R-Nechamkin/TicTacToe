@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import exceptions.IllegalGameSetupException;
 import exceptions.IllegalMoveException;
 import gridGames.GameInfo;
+import gridGames.GridGameBoard;
 
 /**
  * This class is intended to test the Player class
@@ -16,22 +17,22 @@ import gridGames.GameInfo;
  */
 class PlayerTest {
 	static Player human;
+	static GridGameBoard board;
 	
 	/**
 	 * Sets up the human player which will be used to play
-	 * @throws IllegalGameSetupException 
 	 */
 	@BeforeEach
-	void setUp() throws IllegalGameSetupException {
-		GameInfo info = new TTTGameInfo(human, null, new TicTacToeBoard());
-		human = new HumanPlayer(info);
+	void setUp(){
+		human = new HumanPlayer();
+		board = new TicTacToeBoard();
 	}
 	
 	@Test
 	void OneLessPieceAfterPlayMethodIsCalled() {
 		int startPieces = human.getNumPieces(); 
 		try {
-			human.play(new TTTPosition('A', '1'));
+			human.play(new TTTPosition('A', '1'), board);
 		} catch (IllegalMoveException e) {
 			fail("Placing a piece in position A1 threw an IllegalMoveException\n" + e.getStackTrace());
 		}
@@ -41,7 +42,7 @@ class PlayerTest {
 	@Test
 	void PlayMethodReturnsProperDescriptionOfMove() throws IllegalArgumentException, IllegalMoveException {
 		char[] move = {'X', 'A', '1'};
-		char[] result = human.play(new TTTPosition('A', '1'));
+		char[] result = human.play(new TTTPosition('A', '1'), board);
 		assertArrayEquals(move, result);
 	}
 
