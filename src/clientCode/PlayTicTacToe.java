@@ -1,10 +1,15 @@
-package ticTacToe;
+package clientCode;
 
 import java.util.Scanner;
 
 import exceptions.IllegalGameSetupException;
 import general.BoardGame;
 import gridGames.GameInfo;
+import ticTacToe.ComputerPlayer;
+import ticTacToe.HumanPlayer;
+import ticTacToe.TTTGameInfo;
+import ticTacToe.TicTacToe;
+import ticTacToe.TicTacToeBoard;
 import validation.*;
 
 public class PlayTicTacToe {

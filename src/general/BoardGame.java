@@ -57,6 +57,23 @@ public interface BoardGame {
 	 */
 	void playAgain();
 
+	
+	/**
+	 * This method returns the player whose turn it is to go next.
+	 * It also places the player on the back of the queue as if it has taken its turn.
+	 * If you only want to see who the next player is without moving it off the queue, use
+	 * pollNextPlayer()
+	 * @return
+	 */
+	Player getNextPlayer();
+	
+	/**
+	 * This method returns the player whose turn it is to go next.
+	 * Unlike getNextPlayer, this method does not move the player from its spot on the queue.
+	 * @return
+	 */
+	Player pollNextPlayer();
+
 
 
 

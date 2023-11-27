@@ -2,18 +2,19 @@ package ticTacToe;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Queue;
 import java.util.Scanner;
 
 import exceptions.IllegalMoveException;
 import general.BoardGame;
-import general.PlayerQueue;
 import gridGames.GameInfo;
 import gridGames.GridGameBoard;
+import playerQueue.PlayerQueue;
 import validation.ConsoleValidation;
 import validation.Validation;
 
 public class TicTacToe implements BoardGame{
-	private PlayerQueue<Player> players;
+	private Queue<Player> players;
 	private GridGameBoard board;
 	private Validation val;
 	private GameInfo info;
@@ -32,19 +33,28 @@ public class TicTacToe implements BoardGame{
 	public void setUpGame() {
 		this.board = info.getBoard();
 		players.clear();
-		players.enqueue(info.getHuman());
-		players.enqueue(info.getComputer());
+		players.add(info.getHuman());
+		players.add(info.getComputer());
 				
 	}
+
+	
 	/*
 	 * See the interface for a description of the method
 	 */
-	public void nextPlayerGo() throws IllegalMoveException {
-		Player currPlayer = players.dequeue();
-		char[] move = currPlayer.play(board);
-		players.enqueue(currPlayer);
-		System.out.println(currPlayer.getName() + " has gone in the position of " + move[1] + move[2] + ".");
-		System.out.println("This is the current state of the board:\n" + board);
+	@Override
+	public Player getNextPlayer() {
+		Player p = players.remove();
+		players.remove(p);
+		return p;
+	}
+	
+	/*
+	 * See the interface for a description of the method
+	 */
+	@Override
+	public Player pollNextPlayer() {
+		return players.peek();
 	}
 	
 	/*
@@ -58,11 +68,11 @@ public class TicTacToe implements BoardGame{
 		if (winner == null)
 			return null;
 		else {
-			Player p = players.dequeue();
+			Player p = players.remove();
 			if (p.getPieceType() == winner)
 					return p.getName();
 			players.add(p);
-			p = players.dequeue();
+			p = players.remove();
 			if (p.getPieceType() == winner)
 				return p.getName();
 			}
@@ -119,6 +129,17 @@ public class TicTacToe implements BoardGame{
 		}
 		return winner;
 	}
+	
+	/*
+	 * See the interface for a description of the method
+	 */
+	public void nextPlayerGo() throws IllegalMoveException {
+		Player currPlayer = players.remove();
+		char[] move = currPlayer.play(board);
+		players.remove(currPlayer);
+		System.out.println(currPlayer.getName() + " has gone in the position of " + move[1] + move[2] + ".");
+		System.out.println("This is the current state of the board:\n" + board);
+	}
 
 	/*
 	 * See the interface for a description of the method
@@ -128,13 +149,7 @@ public class TicTacToe implements BoardGame{
 		setUpGame();
 	}
 	
-	/**
-	 * Returns the game board. Note that this method is not part of the interface.
-	 * @return the board this game is playing with as a GridGameBoard
-	 */
-	public GridGameBoard getBoard() {
-		return board;
-	}
+
 
 	
 }

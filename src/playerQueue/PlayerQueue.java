@@ -1,8 +1,12 @@
-package general;
+package playerQueue;
 
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Queue;
+
+/*
+ * This class wasn't working so well, so I stopped working on it and used the JCF Queue
+ */
 
 /**
  * This class is intended to be used as a queue specifically intended to hold players for games.
@@ -15,17 +19,20 @@ import java.util.Queue;
  */
 public class PlayerQueue<T> implements Queue<T>{
 	
-	private Object[] array;
-	private int tail = 0;
-	private int size = 0;
-	private int head = 0;
-	private int capacity;
+	Object[] array;
+	int tail;
+	int size;
+	int head;
+	int capacity;
 
 	public PlayerQueue(int numPlayers) {
 		if (numPlayers <= 0)
 			throw new IllegalArgumentException("This queue requires a game to have at least one player.");
 		array = new Object[numPlayers];
 		capacity = numPlayers;
+		tail = 0;
+		size = 0;
+		head = 0;
 	}
 	
 	/**
@@ -200,9 +207,7 @@ public class PlayerQueue<T> implements Queue<T>{
 	public boolean add(T e) {
 		if (offer(e))
 			return true;
-		if (size == capacity)
-			throw new IllegalStateException("You have already added the maximum number of players possible.");
-		return false;
+		throw new IllegalStateException("You have already added the maximum number of players possible.");
 	}
 
 	@Override
@@ -211,7 +216,7 @@ public class PlayerQueue<T> implements Queue<T>{
 			return false;
 		
 		array[tail] = e;
-		tail = (tail + 1) % array.length;
+		tail = (tail + 1) % capacity;
 		size ++;
 		return true;
 	}
@@ -246,6 +251,18 @@ public class PlayerQueue<T> implements Queue<T>{
 			throw new IllegalStateException("Queue is empty");
 		
 		return (T) array[head];
+	}
+	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		int i = head;
+		for (; i < head + size -1; i++) {
+			sb.append(array[i % array.length] + ",");
+		}
+		sb.append(array[i % array.length]);
+		return sb.toString();
+				
 	}
 	
 

@@ -16,22 +16,17 @@ class TicTacToeTest {
 	
 	@BeforeEach
 	void setUp() throws IllegalGameSetupException {
-		GameInfo info = null;
+		GameInfo info = new TTTGameInfo(new HumanPlayer(), new ComputerPlayer(), new TicTacToeBoard());
 		game = new TicTacToe(info);
 	}
 	@Test
 	void ConstructorSetsUpBoardAndPlayers() {
 		TicTacToe tGame = (TicTacToe) game;
-		assertNotEquals(tGame.getBoard(), null, "Board was not created.");
+		assertNotNull(tGame.seeBoard(), "Board was not created.");
 		List<Player> players = game.getPlayers();
-		assertNotEquals(players.get(0), null, "Player 1 was not created.");
-		assertNotEquals(players.get(1), null, "Player 2 was not created.");
+		assertNotNull(players.get(0), "Player 1 was not created.");
+		assertNotNull(players.get(1), "Player 2 was not created.");
 	}
-	
-	@Test
-	void NextPlayerGoWorks() {
-		Player p1 = game.getPlayers().get(0);
-		Player p2 = game.getPlayers().get(1);
-	}
+
 
 }
