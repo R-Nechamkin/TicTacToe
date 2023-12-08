@@ -1,4 +1,4 @@
-package ticTacToe;
+package tTTGameClasses;
 
 
 public class ComputerPlayer extends Player{

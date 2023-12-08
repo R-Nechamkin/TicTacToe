@@ -7,18 +7,13 @@ import java.util.Scanner;
 import exceptions.IllegalGameSetupException;
 import general.BoardGame;
 import gridGames.GameInfo;
-import ticTacToe.ComputerPlayer;
-import ticTacToe.HumanPlayer;
-import ticTacToe.Player;
-import ticTacToe.TTTGameInfo;
-import ticTacToe.TicTacToe;
-import ticTacToe.TicTacToeBoard;
+import tTTGameClasses.*;
 import validation.*;
 
 public class PlayTicTacToe {
 
 	public static void main(String[] args) {
-		Validation val = new ConsoleValidation(new Scanner(System.in));
+		Validator val = new ConsoleValidator(new Scanner(System.in));
 		System.out.println("Let's play Tic Tac Toe!");
 		System.out.println(getRules() + "\n");
 		

@@ -4,8 +4,7 @@ import java.util.List;
 import java.util.Queue;
 
 import exceptions.IllegalMoveException;
-import gridGames.GridGameBoard;
-import ticTacToe.Player;
+import tTTGameClasses.Player;
 
 public interface BoardGame {
 	

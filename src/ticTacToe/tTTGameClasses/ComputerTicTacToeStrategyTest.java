@@ -1,4 +1,4 @@
-package ticTacToe;
+package tTTGameClasses;
 
 import static org.junit.jupiter.api.Assertions.*;
 

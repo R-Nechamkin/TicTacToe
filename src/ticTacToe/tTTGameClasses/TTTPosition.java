@@ -1,4 +1,4 @@
-package ticTacToe;
+package tTTGameClasses;
 
 import java.util.Objects;
 

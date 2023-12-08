@@ -8,7 +8,7 @@ import java.util.Scanner;
  * @author rnech
  *
  */
-public class ConsoleValidation implements Validation {
+public class ConsoleValidator implements Validator {
 
 	Scanner keyboard;
 	
@@ -16,7 +16,7 @@ public class ConsoleValidation implements Validation {
 	 * 
 	 * @param keyboard a {@code Scanner} object (The program assumes the Scanner is reading from the keyboard)
 	 */
-	public ConsoleValidation(Scanner keyboard) {
+	public ConsoleValidator(Scanner keyboard) {
 		this.keyboard = keyboard;
 	}
 	

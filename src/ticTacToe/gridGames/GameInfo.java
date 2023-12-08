@@ -1,6 +1,6 @@
 package gridGames;
 
-import ticTacToe.Player;
+import tTTGameClasses.Player;
 
 public interface GameInfo {
 

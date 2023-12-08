@@ -1,4 +1,4 @@
-package ticTacToe;
+package tTTGameClasses;
 
 import java.util.Scanner;
 
@@ -8,14 +8,14 @@ import gridGames.Position;
 import validation.*;
 
 public class HumanTicTacToeStrategy extends HumanStrategy {
-	private Validation val;
+	private Validator val;
 
 	private final static char[] rowOptions = {'A', 'B', 'C'};
 	private final static char[] colOptions = {'1', '2', '3'};
 	
 	public HumanTicTacToeStrategy(Scanner keyboard) {
 		super(keyboard);
-		val = new ConsoleValidation(keyboard);
+		val = new ConsoleValidator(keyboard);
 	}
 	
 	/**

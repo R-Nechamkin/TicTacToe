@@ -1,4 +1,4 @@
-package ticTacToe;
+package tTTGameClasses;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -8,17 +8,17 @@ import java.util.Scanner;
 
 import exceptions.IllegalMoveException;
 import general.BoardGame;
-import validation.ConsoleValidation;
-import validation.Validation;
+import validation.ConsoleValidator;
+import validation.Validator;
 
 public class TicTacToe implements BoardGame{
 	private Queue<Player> players;
 	private TicTacToeBoard board;
-	private Validation val;
+	private Validator val;
 	
 	public TicTacToe(Queue<Player> players) {
 		setUpGame(players);
-		val = new ConsoleValidation(new Scanner(System.in));
+		val = new ConsoleValidator(new Scanner(System.in));
 	}
 	
 	/*

@@ -1,4 +1,4 @@
-package ticTacToe;
+package tTTGameClasses;
 
 import exceptions.IllegalGameSetupException;
 import gridGames.GameInfo;
